@@ -32,14 +32,24 @@ namespace CottonRenderer
         {
             var viewMatrix = Matrix.LookAtLH(camera.Position, camera.Target, Vector3.UnitY);
             var projectionMatrix = Matrix.PerspectiveFovRH(0.78f, (float)Width / Height, 0.01f, 1.0f);
+            var col = new Color4(0.0f, 0.5f, 1.0f, 1.0f);
             foreach (Model model in models)
             {
                 var worldMatrix = Matrix.RotationYawPitchRoll(model.Rotation.Y, model.Rotation.X, model.Rotation.Z) * Matrix.Translation(model.Position);
                 var transformMatrix = worldMatrix * viewMatrix * projectionMatrix;
-                foreach (var vertex in model.Vertices)
+                foreach (var face in model.Faces)
                 {
-                    Vector2 point = Project(vertex, transformMatrix);
-                    renderer.DrawPixel(point, Color4.White);
+                    var vertexA = model.Vertices[face.A];
+                    var vertexB = model.Vertices[face.B];
+                    var vertexC = model.Vertices[face.C];
+
+                    var pixelA = Project(vertexA, transformMatrix);
+                    var pixelB = Project(vertexB, transformMatrix);
+                    var pixelC = Project(vertexC, transformMatrix);
+
+                    renderer.DrawLine(pixelA, pixelB, col, col);
+                    renderer.DrawLine(pixelB, pixelC, col, col);
+                    renderer.DrawLine(pixelC, pixelA, col, col);
                 }
             }
         }

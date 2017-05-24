@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotton", "SoftEngine\Cotton
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWPF", "SoftEngineWPF\CottonWPF.csproj", "{BEEE8432-78D7-4C0F-B14D-2D3E10997268}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWinForms", "CottonWinForms\CottonWinForms.csproj", "{AD0BA457-5BB7-415B-B875-3D1C46E33588}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BEEE8432-78D7-4C0F-B14D-2D3E10997268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEEE8432-78D7-4C0F-B14D-2D3E10997268}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEEE8432-78D7-4C0F-B14D-2D3E10997268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD0BA457-5BB7-415B-B875-3D1C46E33588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0BA457-5BB7-415B-B875-3D1C46E33588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0BA457-5BB7-415B-B875-3D1C46E33588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0BA457-5BB7-415B-B875-3D1C46E33588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
