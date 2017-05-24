@@ -1,7 +1,7 @@
-﻿<Application x:Class="SoftEngineWPF.App"
+﻿<Application x:Class="CottonWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SoftEngineWPF"
+             xmlns:local="clr-namespace:CottonWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

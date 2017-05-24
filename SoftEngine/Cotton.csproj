@@ -7,8 +7,8 @@
     <ProjectGuid>{E59C84BC-86C0-4EC7-A844-DB87AD8558FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SoftEngine</RootNamespace>
-    <AssemblyName>SoftEngine</AssemblyName>
+    <RootNamespace>CottonRenderer</RootNamespace>
+    <AssemblyName>CottonRenderer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
