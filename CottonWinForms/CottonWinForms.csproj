@@ -87,7 +87,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftEngine\Cotton.csproj">
+    <ProjectReference Include="..\CottonRenderer\Cotton.csproj">
       <Project>{e59c84bc-86c0-4ec7-a844-db87ad8558fc}</Project>
       <Name>Cotton</Name>
     </ProjectReference>

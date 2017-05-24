@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotton", "SoftEngine\Cotton.csproj", "{E59C84BC-86C0-4EC7-A844-DB87AD8558FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotton", "CottonRenderer\Cotton.csproj", "{E59C84BC-86C0-4EC7-A844-DB87AD8558FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWPF", "SoftEngineWPF\CottonWPF.csproj", "{BEEE8432-78D7-4C0F-B14D-2D3E10997268}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWPF", "CottonWPF\CottonWPF.csproj", "{BEEE8432-78D7-4C0F-B14D-2D3E10997268}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWinForms", "CottonWinForms\CottonWinForms.csproj", "{AD0BA457-5BB7-415B-B875-3D1C46E33588}"
 EndProject
