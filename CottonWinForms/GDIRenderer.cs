@@ -29,7 +29,7 @@ namespace CottonWinForms
         }
         public override void DrawPixel(Vector2 pos, Color4 color)
         {
-            if (pos.X < RenderTarget.Width && pos.Y < RenderTarget.HorizontalResolution && pos.X > 0 && pos.Y > 0)
+            if (pos.X < RenderTarget.Width && pos.Y < RenderTarget.Height && pos.X > 0 && pos.Y > 0)
             {
                 RenderTarget.SetPixel((int)pos.X, (int)pos.Y, ConvertColor(color));
             }
