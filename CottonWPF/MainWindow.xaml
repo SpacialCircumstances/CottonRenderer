@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CottonWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    
+        Title="CottonWPF" Height="650" Width="800" Loaded="Window_Loaded">
+    <Canvas>
+        <Image Height="600" Width="800" Canvas.Top="0" Name="RenderTarget"></Image>
+        <Button Name="RenderButton" Height="50" Canvas.Bottom="0" Width="800" Click="RenderButton_Click">Render</Button>
+    </Canvas>
 </Window>

@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+using SharpDX;
+using CottonRenderer;
 
 namespace CottonWPF
 {
@@ -23,6 +26,33 @@ namespace CottonWPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private WPFRenderer renderer;
+        private Device device;
+        private Camera camera;
+        private Model[] meshes;
+
+        private void RenderButton_Click(object sender, RoutedEventArgs e)
+        {
+            device.Clear(Color4.Black);
+            foreach (var mesh in meshes)
+            {
+                mesh.Rotation = new Vector3(mesh.Rotation.X + 0.1f, mesh.Rotation.Y + 0.1f, mesh.Rotation.Z);
+                device.Render(camera, mesh);
+            }
+            device.Display();
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            renderer = new WPFRenderer(RenderTarget);
+            RenderTarget.Source = renderer.Source;
+            device = new Device(renderer, (int)RenderTarget.Width, (int)RenderTarget.Height);
+            camera = new Camera();
+            meshes = await device.LoadJSONFileAsync("landscape.babylon");
+
+            camera.Position = new Vector3(0, 0, 5.0f);
+            camera.Target = Vector3.Zero;
         }
     }
 }
