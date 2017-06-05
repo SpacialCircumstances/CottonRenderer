@@ -14,12 +14,14 @@ namespace CottonRenderer
         public Face[] Faces { get; set; }
         public Vector3 Position { get; set; }
         public Vector3 Rotation { get; set; }
+        public RenderMode Mode { get; set; }
 
-        public Model(string name, int verticesCount, int facesCount)
+        public Model(string name, int verticesCount, int facesCount, RenderMode mode)
         {
             Vertices = new Vector3[verticesCount];
             Faces = new Face[facesCount];
             Name = name;
+            Mode = mode;
         }
     }
 }

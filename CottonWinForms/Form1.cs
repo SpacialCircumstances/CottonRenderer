@@ -40,7 +40,7 @@ namespace CottonWinForms
             camera = new Camera();
             meshes = await device.LoadJSONFileAsync("monkey.babylon");
 
-            camera.Position = new Vector3(0, 0, 10.0f);
+            camera.Position = new Vector3(0, 0, 25.0f);
             camera.Target = Vector3.Zero;
         }
     }
