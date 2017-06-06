@@ -10,6 +10,7 @@ namespace CottonSFML
     {
         static void Main(string[] args)
         {
+            new Game().Run();
         }
     }
 }

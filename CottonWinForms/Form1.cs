@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SharpDX;
 using CottonRenderer;
+using System.Diagnostics;
 
 namespace CottonWinForms
 {
@@ -22,8 +23,10 @@ namespace CottonWinForms
         private Device device;
         private Camera camera;
         private Model[] meshes;
-        private void renderButton_Click(object sender, EventArgs e)
+        private void RenderButton_Click(object sender, EventArgs e)
         {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             device.Clear(Color4.Black);
             foreach(var mesh in meshes)
             {
@@ -31,6 +34,8 @@ namespace CottonWinForms
                 device.Render(camera, mesh);
             }
             device.Display();
+            watch.Stop();
+            MessageBox.Show(Convert.ToString(watch.ElapsedMilliseconds) + "ms", "Renderdauer");
         }
 
         private async void Form_Load(object sender, EventArgs e)
@@ -38,10 +43,11 @@ namespace CottonWinForms
             renderer = new GDIRenderer(target);
             device = new Device(renderer, target.Image.Size.Width, target.Image.Size.Height);
             camera = new Camera();
-            meshes = await device.LoadJSONFileAsync("monkey.babylon");
+            meshes = await device.LoadJSONFileAsync("landscape.babylon");
 
-            camera.Position = new Vector3(0, 0, 25.0f);
+            camera.Position = new Vector3(0, 0, 5.0f);
             camera.Target = Vector3.Zero;
+            meshes[0].Rotation = new Vector3(0f, 0f, 0.5f);
         }
     }
 }

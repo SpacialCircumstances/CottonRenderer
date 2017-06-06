@@ -72,6 +72,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="landscape.babylon">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="monkey.babylon">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
