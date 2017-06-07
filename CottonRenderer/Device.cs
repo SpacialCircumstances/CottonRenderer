@@ -15,10 +15,12 @@ namespace CottonRenderer
             renderer = r;
             Width = width;
             Height = height;
+            depthBuffer = new float[Width * Height];
         }
         Renderer renderer;
         public int Height;
         public int Width;
+        private float[] depthBuffer;
         public Vector3 Project(Vector3 coord, Matrix transMat)
         {
             var point = Vector3.TransformCoordinate(coord, transMat);
@@ -58,6 +60,10 @@ namespace CottonRenderer
         public void Clear(Color4 color)
         {
             renderer.Clear(color);
+            for (var index = 0; index < depthBuffer.Length; index++)
+            {
+                depthBuffer[index] = float.MaxValue;
+            }
         }
         public void Display()
         {
@@ -207,9 +213,14 @@ namespace CottonRenderer
             int sx = (int)Interpolate(pa.X, pb.X, gradient1);
             int ex = (int)Interpolate(pc.X, pd.X, gradient2);
 
+            float z1 = Interpolate(pa.Z, pb.Z, gradient1);
+            float z2 = Interpolate(pc.Z, pd.Z, gradient2);
+
             for (var x = sx; x < ex; x++)
             {
-                renderer.DrawPixel(new Vector2(x, y), color);
+                float gradient = (x - sx) / (float)(ex - sx);
+                float z = Interpolate(z1, z2, gradient);
+                DrawPoint(new Vector2(x, y), z, color);
             }
         }
 
@@ -288,6 +299,23 @@ namespace CottonRenderer
                     }
                 }
             }
+        }
+        private void DrawPoint(Vector2 pos, float z, Color4 color)
+        {
+            if(pos.X > Width || pos.X < 0 || pos.Y > Height || pos.Y < 0)
+            {
+                return;
+            }
+            int index = (int)(pos.X + pos.Y * Width);
+            int index4 = index * 4;
+
+            if (depthBuffer[index] < z)
+            {
+                return;
+            }
+
+            depthBuffer[index] = z;
+            renderer.DrawPixel(pos, color);
         }
     }
 }
