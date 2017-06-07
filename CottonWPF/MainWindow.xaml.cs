@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using SharpDX;
 using CottonRenderer;
+using CottonRenderer.ModelLoader;
 
 namespace CottonWPF
 {
@@ -46,7 +47,8 @@ namespace CottonWPF
             RenderTarget.Source = renderer.Source;
             device = new Device(renderer, (int)RenderTarget.Width, (int)RenderTarget.Height);
             camera = new Camera();
-            meshes = await device.LoadJSONFileAsync("landscape.babylon");
+            BabylonJSLoader loader = new BabylonJSLoader();
+            meshes = await loader.LoadModelFileAsync("landscape.babylon");
 
             camera.Position = new Vector3(0, 0, 5.0f);
             camera.Target = Vector3.Zero;

@@ -7,11 +7,10 @@ using SharpDX;
 
 namespace CottonRenderer
 {
-    public struct Face
+    public struct Vertex
     {
-        public int A;
-        public int B;
-        public int C;
-        public Color4 Color;
+        public Vector3 Normal;
+        public Vector3 Coordinates;
+        public Vector3 WorldCoordinates;
     }
 }

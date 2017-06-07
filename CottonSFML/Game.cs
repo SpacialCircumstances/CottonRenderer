@@ -7,6 +7,7 @@ using SFML.System;
 using SFML.Window;
 using SFML.Graphics;
 using CottonRenderer;
+using CottonRenderer.ModelLoader;
 using SharpDX;
 using System.Diagnostics;
 
@@ -38,10 +39,11 @@ namespace CottonSFML
             renderer = new SFMLImageRenderer(img, 800, 600);
             device = new Device(renderer, 800, 600);
             camera = new Camera();
-            meshes = device.LoadJSONFile("landscape.babylon");
+            BabylonJSLoader loader = new BabylonJSLoader();
+            meshes = loader.LoadModelFile("monkey.babylon");
             meshes[0].Rotation = new Vector3(3.14f, 0f, 0f);
             
-            camera.Position = new Vector3(0, 0, 5.0f);
+            camera.Position = new Vector3(0, 0, 15.0f);
             camera.Target = Vector3.Zero;
             while (window.IsOpen)
             {
