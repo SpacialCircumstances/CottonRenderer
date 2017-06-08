@@ -62,18 +62,18 @@ namespace CottonRenderer.WPF
             int x1 = (int)pos2.X;
             int y1 = (int)pos2.Y;
 
-            var dx = Math.Abs(x1 - x0);
-            var dy = Math.Abs(y1 - y0);
-            var sx = (x0 < x1) ? 1 : -1;
-            var sy = (y0 < y1) ? 1 : -1;
-            var err = dx - dy;
+            int dx = Math.Abs(x1 - x0);
+            int dy = Math.Abs(y1 - y0);
+            int sx = (x0 < x1) ? 1 : -1;
+            int sy = (y0 < y1) ? 1 : -1;
+            int err = dx - dy;
 
             while (true)
             {
                 DrawPixel(new Vector2(x0, y0), color1);
 
                 if ((x0 == x1) && (y0 == y1)) break;
-                var e2 = 2 * err;
+                int e2 = 2 * err;
                 if (e2 > -dy) { err -= dy; x0 += sx; }
                 if (e2 < dx) { err += dx; y0 += sy; }
             }

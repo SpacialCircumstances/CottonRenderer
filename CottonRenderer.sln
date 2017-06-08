@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonRenderer.WinForms", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonRenderer.WPF", "CottonRenderer.WPF\CottonRenderer.WPF.csproj", "{8515AA10-0719-4C13-BB52-B7505BD91FC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrainGenerator", "TerrainGenerator\TerrainGenerator.csproj", "{1AC79EE0-9391-4A01-9B50-7B8562E71347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC79EE0-9391-4A01-9B50-7B8562E71347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC79EE0-9391-4A01-9B50-7B8562E71347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC79EE0-9391-4A01-9B50-7B8562E71347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC79EE0-9391-4A01-9B50-7B8562E71347}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,5 +67,6 @@ Global
 		{BEEE8432-78D7-4C0F-B14D-2D3E10997268} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
 		{AD0BA457-5BB7-415B-B875-3D1C46E33588} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
 		{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
+		{1AC79EE0-9391-4A01-9B50-7B8562E71347} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
 	EndGlobalSection
 EndGlobal
