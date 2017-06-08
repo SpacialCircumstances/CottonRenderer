@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.System;
 using SFML.Window;
 using SFML.Graphics;
@@ -17,7 +13,7 @@ namespace CottonSFML
     {
         public Game()
         {
-            
+
         }
         RenderWindow window;
         Image img;
@@ -34,15 +30,17 @@ namespace CottonSFML
             window.MouseButtonPressed += Window_MouseButtonPressed;
             img = new Image(800, 600);
             tex = new Texture(img);
-            s = new Sprite(tex);
-            s.Position = new Vector2f(0, 0);
+            s = new Sprite(tex)
+            {
+                Position = new Vector2f(0, 0)
+            };
             renderer = new SFMLImageRenderer(img, 800, 600);
             device = new Device(renderer, 800, 600);
             camera = new Camera();
             BabylonJSLoader loader = new BabylonJSLoader();
             meshes = loader.LoadModelFile("monkey.babylon");
             meshes[0].Rotation = new Vector3(3.14f, 0f, 0f);
-            
+
             camera.Position = new Vector3(0, 0, 15.0f);
             camera.Target = Vector3.Zero;
             while (window.IsOpen)

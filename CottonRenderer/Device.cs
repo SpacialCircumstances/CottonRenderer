@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Threading.Tasks;
 using SharpDX;
 
 namespace CottonRenderer
@@ -38,7 +33,8 @@ namespace CottonRenderer
             {
                 Coordinates = new Vector3(x, y, point2d.Z),
                 Normal = normal3dWorld,
-                WorldCoordinates = point3dWorld
+                WorldCoordinates = point3dWorld,
+                Color = vertex.Color
             };
         }
 
@@ -89,40 +85,43 @@ namespace CottonRenderer
         {
             return min + (max - min) * Clamp(gradient);
         }
-
-        void ProcessScanLine(ScanLineData data, Vertex va, Vertex vb, Vertex vc, Vertex vd, Color4 color)
+        Color4 InterpolateColor(Color4 color1, Color4 color2, float amount)
         {
-            Vector3 pa = va.Coordinates;
-            Vector3 pb = vb.Coordinates;
-            Vector3 pc = vc.Coordinates;
-            Vector3 pd = vd.Coordinates;
+            if (amount > 1 && amount < 0)
+            {
+                amount = Clamp(amount);
+            }
+            Color4 c1 = color1 * amount;
+            Color4 c2 = color2 * (1 - amount);
+            return c1 + c2;
+        }
 
+        void ProcessScanLine(int y, Vertex pa, Vertex pb, Vertex pc, Vertex pd)
+        {
             // Thanks to current Y, we can compute the gradient to compute others values like
             // the starting X (sx) and ending X (ex) to draw between
             // if pa.Y == pb.Y or pc.Y == pd.Y, gradient is forced to 1
-            float gradient1 = pa.Y != pb.Y ? (data.currentY - pa.Y) / (pb.Y - pa.Y) : 1;
-            float gradient2 = pc.Y != pd.Y ? (data.currentY - pc.Y) / (pd.Y - pc.Y) : 1;
+            var gradient1 = pa.Coordinates.Y != pb.Coordinates.Y ? (y - pa.Coordinates.Y) / (pb.Coordinates.Y - pa.Coordinates.Y) : 1;
+            var gradient2 = pc.Coordinates.Y != pd.Coordinates.Y ? (y - pc.Coordinates.Y) / (pd.Coordinates.Y - pc.Coordinates.Y) : 1;
 
-            int sx = (int)Interpolate(pa.X, pb.X, gradient1);
-            int ex = (int)Interpolate(pc.X, pd.X, gradient2);
+            Color4 color1 = InterpolateColor(pa.Color, pb.Color, gradient1);
+            Color4 color2 = InterpolateColor(pc.Color, pd.Color, gradient2);
+
+            int sx = (int)Interpolate(pa.Coordinates.X, pb.Coordinates.X, gradient1);
+            int ex = (int)Interpolate(pc.Coordinates.X, pd.Coordinates.X, gradient2);
 
             // starting Z & ending Z
-            float z1 = Interpolate(pa.Z, pb.Z, gradient1);
-            float z2 = Interpolate(pc.Z, pd.Z, gradient2);
-
-            float snl = Interpolate(data.ndotla, data.ndotlb, gradient1);
-            float enl = Interpolate(data.ndotlc, data.ndotld, gradient2);
+            float z1 = Interpolate(pa.Coordinates.Z, pb.Coordinates.Z, gradient1);
+            float z2 = Interpolate(pc.Coordinates.Z, pd.Coordinates.Z, gradient2);
 
             // drawing a line from left (sx) to right (ex) 
-            for (int x = sx; x < ex; x++)
+            for (var x = sx; x < ex; x++)
             {
                 float gradient = (x - sx) / (float)(ex - sx);
 
-                float z = Interpolate(z1, z2, gradient);
-                float ndotl = Interpolate(snl, enl, gradient);
-                // changing the color value using the cosine of the angle
-                // between the light vector and the normal vector
-                DrawPoint(new Vector2(x, data.currentY), z, color * ndotl);
+                var z = Interpolate(z1, z2, gradient);
+                Color4 color = InterpolateColor(color1, color2, gradient);
+                DrawPoint(new Vector2(x, y), z, color);
             }
         }
 
@@ -138,113 +137,102 @@ namespace CottonRenderer
             return Math.Max(0, Vector3.Dot(normal, lightDirection));
         }
 
-        public void DrawTriangle(Vertex v1, Vertex v2, Vertex v3, Color4 color)
+
+        public void DrawTriangle(Vertex p1, Vertex p2, Vertex p3, Color4 color)
         {
             // Sorting the points in order to always have this order on screen p1, p2 & p3
             // with p1 always up (thus having the Y the lowest possible to be near the top screen)
             // then p2 between p1 & p3
-            if (v1.Coordinates.Y > v2.Coordinates.Y)
+            if (p1.Coordinates.Y > p2.Coordinates.Y)
             {
-                Vertex temp = v2;
-                v2 = v1;
-                v1 = temp;
+                var temp = p2;
+                p2 = p1;
+                p1 = temp;
             }
 
-            if (v2.Coordinates.Y > v3.Coordinates.Y)
+            if (p2.Coordinates.Y > p3.Coordinates.Y)
             {
-                Vertex temp = v2;
-                v2 = v3;
-                v3 = temp;
+                var temp = p2;
+                p2 = p3;
+                p3 = temp;
             }
 
-            if (v1.Coordinates.Y > v2.Coordinates.Y)
+            if (p1.Coordinates.Y > p2.Coordinates.Y)
             {
-                Vertex temp = v2;
-                v2 = v1;
-                v1 = temp;
+                var temp = p2;
+                p2 = p1;
+                p1 = temp;
             }
 
-            Vector3 p1 = v1.Coordinates;
-            Vector3 p2 = v2.Coordinates;
-            Vector3 p3 = v3.Coordinates;
-
-            // Light position 
-            Vector3 lightPos = new Vector3(0, 10, 10);
-            // computing the cos of the angle between the light vector and the normal vector
-            // it will return a value between 0 and 1 that will be used as the intensity of the color
-            float nl1 = ComputeNDotL(v1.WorldCoordinates, v1.Normal, lightPos);
-            float nl2 = ComputeNDotL(v2.WorldCoordinates, v2.Normal, lightPos);
-            float nl3 = ComputeNDotL(v3.WorldCoordinates, v3.Normal, lightPos);
-
-            ScanLineData data = new ScanLineData { };
-
-            // computing lines' directions
+            // inverse slopes
             float dP1P2, dP1P3;
 
             // http://en.wikipedia.org/wiki/Slope
-            // Computing slopes
-            if (p2.Y - p1.Y > 0)
-                dP1P2 = (p2.X - p1.X) / (p2.Y - p1.Y);
+            // Computing inverse slopes
+            if (p2.Coordinates.Y - p1.Coordinates.Y > 0)
+                dP1P2 = (p2.Coordinates.X - p1.Coordinates.X) / (p2.Coordinates.Y - p1.Coordinates.Y);
             else
                 dP1P2 = 0;
 
-            if (p3.Y - p1.Y > 0)
-                dP1P3 = (p3.X - p1.X) / (p3.Y - p1.Y);
+            if (p3.Coordinates.Y - p1.Coordinates.Y > 0)
+                dP1P3 = (p3.Coordinates.X - p1.Coordinates.X) / (p3.Coordinates.Y - p1.Coordinates.Y);
             else
                 dP1P3 = 0;
 
+            // First case where triangles are like that:
+            // P1
+            // -
+            // -- 
+            // - -
+            // -  -
+            // -   - P2
+            // -  -
+            // - -
+            // -
+            // P3
             if (dP1P2 > dP1P3)
             {
-                for (int y = (int)p1.Y; y <= (int)p3.Y; y++)
+                for (int y = (int)p1.Coordinates.Y; y <= (int)p3.Coordinates.Y; y++)
                 {
-                    data.currentY = y;
-
-                    if (y < p2.Y)
+                    if (y < p2.Coordinates.Y)
                     {
-                        data.ndotla = nl1;
-                        data.ndotlb = nl3;
-                        data.ndotlc = nl1;
-                        data.ndotld = nl2;
-                        ProcessScanLine(data, v1, v3, v1, v2, color);
+                        ProcessScanLine(y, p1, p3, p1, p2);
                     }
                     else
                     {
-                        data.ndotla = nl1;
-                        data.ndotlb = nl3;
-                        data.ndotlc = nl2;
-                        data.ndotld = nl3;
-                        ProcessScanLine(data, v1, v3, v2, v3, color);
+                        ProcessScanLine(y, p1, p3, p2, p3);
                     }
                 }
             }
+            // First case where triangles are like that:
+            //       P1
+            //        -
+            //       -- 
+            //      - -
+            //     -  -
+            // P2 -   - 
+            //     -  -
+            //      - -
+            //        -
+            //       P3
             else
             {
-                for (int y = (int)p1.Y; y <= (int)p3.Y; y++)
+                for (var y = (int)p1.Coordinates.Y; y <= (int)p3.Coordinates.Y; y++)
                 {
-                    data.currentY = y;
-
-                    if (y < p2.Y)
+                    if (y < p2.Coordinates.Y)
                     {
-                        data.ndotla = nl1;
-                        data.ndotlb = nl2;
-                        data.ndotlc = nl1;
-                        data.ndotld = nl3;
-                        ProcessScanLine(data, v1, v2, v1, v3, color);
+                        ProcessScanLine(y, p1, p2, p1, p3);
                     }
                     else
                     {
-                        data.ndotla = nl2;
-                        data.ndotlb = nl3;
-                        data.ndotlc = nl1;
-                        data.ndotld = nl3;
-                        ProcessScanLine(data, v2, v3, v1, v3, color);
+                        ProcessScanLine(y, p2, p3, p1, p3);
                     }
                 }
             }
         }
         private void DrawPoint(Vector2 pos, float z, Color4 color)
         {
-            if(pos.X >= Width || pos.X < 0 || pos.Y >= Height || pos.Y < 0)
+            if (pos.X >= Width || pos.X < 0 || pos.Y >= Height || pos.Y < 0)
             {
                 return;
             }

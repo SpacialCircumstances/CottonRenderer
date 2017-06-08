@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using SharpDX;
@@ -60,9 +59,9 @@ namespace CottonRenderer.ModelLoader
                     float nx = (float)verticesArray[index * verticesStep + 3].Value;
                     float ny = (float)verticesArray[index * verticesStep + 4].Value;
                     float nz = (float)verticesArray[index * verticesStep + 5].Value;
-                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz) };
+                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz), Color = Color4.White };
                 }
-                Color4 color = new Color4(1f, 0.5f, 0.5f, 1f);
+                Color4 color = new Color4(0f, 0.5f, 0.5f, 1f);
                 // Then filling the Faces array
                 for (int index = 0; index < facesCount; index++)
                 {
@@ -127,9 +126,9 @@ namespace CottonRenderer.ModelLoader
                     float nx = (float)verticesArray[index * verticesStep + 3].Value;
                     float ny = (float)verticesArray[index * verticesStep + 4].Value;
                     float nz = (float)verticesArray[index * verticesStep + 5].Value;
-                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz) };
+                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz), Color = new Color4(0.5f, 0.5f, 1f, 1f) };
                 }
-                Color4 color = new Color4(1f, 0.5f, 0.5f, 1f);
+                Color4 color = new Color4(0f, 0.5f, 0.5f, 1f);
                 // Then filling the Faces array
                 for (int index = 0; index < facesCount; index++)
                 {

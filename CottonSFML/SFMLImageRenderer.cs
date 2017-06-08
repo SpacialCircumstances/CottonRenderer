@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpDX.Mathematics;
 using CottonRenderer;
 using SharpDX;
 using SFML.Graphics;
-using SFML.Window;
-using SFML.System;
 
 namespace CottonSFML
 {

@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SharpDX;
-using System.IO;
 using CottonRenderer;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Drawing;
 using System.Windows.Media.Imaging;
 
 namespace CottonWPF
