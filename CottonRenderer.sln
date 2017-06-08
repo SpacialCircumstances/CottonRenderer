@@ -1,15 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cotton", "CottonRenderer\Cotton.csproj", "{E59C84BC-86C0-4EC7-A844-DB87AD8558FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWPF", "CottonWPF\CottonWPF.csproj", "{BEEE8432-78D7-4C0F-B14D-2D3E10997268}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWPFSample", "CottonWPF\CottonWPFSample.csproj", "{BEEE8432-78D7-4C0F-B14D-2D3E10997268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWinForms", "CottonWinForms\CottonWinForms.csproj", "{AD0BA457-5BB7-415B-B875-3D1C46E33588}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonWinFormsSample", "CottonWinForms\CottonWinFormsSample.csproj", "{AD0BA457-5BB7-415B-B875-3D1C46E33588}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonSFML", "CottonSFML\CottonSFML.csproj", "{B969F7F7-2113-4558-8F94-6FC491DB2062}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonRenderer.SFMLNET", "CottonSFML\CottonRenderer.SFMLNET.csproj", "{B969F7F7-2113-4558-8F94-6FC491DB2062}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{3B928FDF-0E7B-4672-AECE-39C2EB013C21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonSFMLSample", "CottonSFMLSample\CottonSFMLSample.csproj", "{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonRenderer.WinForms", "CottonRenderer.WinForms\CottonRenderer.WinForms.csproj", "{FAC6F69F-BB07-476B-8E30-C2768822DDED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CottonRenderer.WPF", "CottonRenderer.WPF\CottonRenderer.WPF.csproj", "{8515AA10-0719-4C13-BB52-B7505BD91FC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +41,25 @@ Global
 		{B969F7F7-2113-4558-8F94-6FC491DB2062}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B969F7F7-2113-4558-8F94-6FC491DB2062}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B969F7F7-2113-4558-8F94-6FC491DB2062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC6F69F-BB07-476B-8E30-C2768822DDED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC6F69F-BB07-476B-8E30-C2768822DDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC6F69F-BB07-476B-8E30-C2768822DDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC6F69F-BB07-476B-8E30-C2768822DDED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8515AA10-0719-4C13-BB52-B7505BD91FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BEEE8432-78D7-4C0F-B14D-2D3E10997268} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
+		{AD0BA457-5BB7-415B-B875-3D1C46E33588} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
+		{FD1050D6-FD98-4DE5-9FC2-6FA3242CDC21} = {3B928FDF-0E7B-4672-AECE-39C2EB013C21}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace CottonSFML
+﻿namespace CottonSFMLSample
 {
     class Program
     {

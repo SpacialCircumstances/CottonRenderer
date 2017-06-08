@@ -2,12 +2,13 @@
 using System.IO;
 using System.Threading.Tasks;
 using SharpDX;
+using System;
 
 namespace CottonRenderer.ModelLoader
 {
-    public class BabylonJSLoader: ModelLoader
+    public class BabylonJSLoader : ModelLoader
     {
-        public BabylonJSLoader(): base()
+        public BabylonJSLoader() : base()
         {
 
         }
@@ -48,7 +49,7 @@ namespace CottonRenderer.ModelLoader
                 // number of faces is logically the size of the array divided by 3 (A, B, C)
                 dynamic facesCount = indicesArray.Count / 3;
                 Model mesh = new Model(jsonObject.meshes[meshIndex].name.Value, verticesCount, facesCount, RenderMode.Colored);
-
+                Random rand = new Random();
                 // Filling the Vertices array of our mesh first
                 for (int index = 0; index < verticesCount; index++)
                 {
@@ -59,7 +60,7 @@ namespace CottonRenderer.ModelLoader
                     float nx = (float)verticesArray[index * verticesStep + 3].Value;
                     float ny = (float)verticesArray[index * verticesStep + 4].Value;
                     float nz = (float)verticesArray[index * verticesStep + 5].Value;
-                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz), Color = Color4.White };
+                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz), Color = new Color4(rand.NextFloat(0, 1), rand.NextFloat(0, 1), rand.NextFloat(0, 1), 1f) };
                 }
                 Color4 color = new Color4(0f, 0.5f, 0.5f, 1f);
                 // Then filling the Faces array
@@ -115,7 +116,7 @@ namespace CottonRenderer.ModelLoader
                 // number of faces is logically the size of the array divided by 3 (A, B, C)
                 dynamic facesCount = indicesArray.Count / 3;
                 Model mesh = new Model(jsonObject.meshes[meshIndex].name.Value, verticesCount, facesCount, RenderMode.Colored);
-
+                Random rand = new Random();
                 // Filling the Vertices array of our mesh first
                 for (int index = 0; index < verticesCount; index++)
                 {
@@ -126,7 +127,7 @@ namespace CottonRenderer.ModelLoader
                     float nx = (float)verticesArray[index * verticesStep + 3].Value;
                     float ny = (float)verticesArray[index * verticesStep + 4].Value;
                     float nz = (float)verticesArray[index * verticesStep + 5].Value;
-                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz), Color = new Color4(0.5f, 0.5f, 1f, 1f) };
+                    mesh.Vertices[index] = new Vertex { Coordinates = new Vector3(x, y, z), Normal = new Vector3(nx, ny, nz), Color = new Color4(rand.NextFloat(0, 1), rand.NextFloat(0, 1), rand.NextFloat(0, 1), 1f) };
                 }
                 Color4 color = new Color4(0f, 0.5f, 0.5f, 1f);
                 // Then filling the Faces array

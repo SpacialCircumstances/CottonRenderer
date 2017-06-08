@@ -4,10 +4,11 @@ using SFML.Window;
 using SFML.Graphics;
 using CottonRenderer;
 using CottonRenderer.ModelLoader;
+using CottonRenderer.SFMLNET;
 using SharpDX;
 using System.Diagnostics;
 
-namespace CottonSFML
+namespace CottonSFMLSample
 {
     public class Game
     {

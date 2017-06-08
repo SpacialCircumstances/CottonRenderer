@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace SoftEngineWPF
+namespace CottonWPFSample
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"

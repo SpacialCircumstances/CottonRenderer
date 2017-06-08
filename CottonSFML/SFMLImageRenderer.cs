@@ -3,7 +3,7 @@ using CottonRenderer;
 using SharpDX;
 using SFML.Graphics;
 
-namespace CottonSFML
+namespace CottonRenderer.SFMLNET
 {
     public class SFMLImageRenderer: Renderer
     {
@@ -63,11 +63,13 @@ namespace CottonSFML
         }
         private SFML.Graphics.Color ConvertColor(Color4 col)
         {
-            SFML.Graphics.Color c = new SFML.Graphics.Color();
-            c.R = (byte)(col.Red * 255);
-            c.B = (byte)(col.Blue * 255);
-            c.G = (byte)(col.Green * 255);
-            c.A = (byte)(col.Alpha * 255);
+            SFML.Graphics.Color c = new SFML.Graphics.Color()
+            {
+                R = (byte)(col.Red * 255),
+                B = (byte)(col.Blue * 255),
+                G = (byte)(col.Green * 255),
+                A = (byte)(col.Alpha * 255)
+            };
             return c;
         }
     }

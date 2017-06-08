@@ -4,7 +4,7 @@ using CottonRenderer;
 using SharpDX;
 using System.Drawing;
 
-namespace CottonWinForms
+namespace CottonRenderer.WinForms
 {
     public class GDIRenderer: Renderer
     {

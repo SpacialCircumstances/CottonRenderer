@@ -4,6 +4,7 @@ using SharpDX;
 using CottonRenderer;
 using System.Diagnostics;
 using CottonRenderer.ModelLoader;
+using CottonRenderer.WinForms;
 
 namespace CottonWinForms
 {
@@ -40,7 +41,7 @@ namespace CottonWinForms
             BabylonJSLoader loader = new BabylonJSLoader();
             meshes = await loader.LoadModelFileAsync("landscape.babylon");
 
-            camera.Position = new Vector3(0, 0, 15.0f);
+            camera.Position = new Vector3(0, 0, 5.0f);
             camera.Target = Vector3.Zero;
             meshes[0].Rotation = new Vector3(0f, 0f, (float)(Math.PI / 2));
         }

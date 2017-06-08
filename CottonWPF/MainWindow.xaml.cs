@@ -4,8 +4,9 @@ using System.Diagnostics;
 using SharpDX;
 using CottonRenderer;
 using CottonRenderer.ModelLoader;
+using CottonRenderer.WPF;
 
-namespace CottonWPF
+namespace CottonWPFSample
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml

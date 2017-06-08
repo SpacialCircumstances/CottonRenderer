@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace CottonWPF
+namespace CottonRenderer.WPF
 {
     public class WPFRenderer : Renderer
     {
