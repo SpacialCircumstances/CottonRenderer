@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TerrainGenerator"
         mc:Ignorable="d"
-        Title="TerrainGenerator" Height="600" Width="800">
+        Title="TerrainGenerator" Height="600" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="2"></Setter>
@@ -18,15 +18,15 @@
         </Style>
     </Window.Resources>
     <DockPanel>
-        <TextBox AcceptsReturn="True" DockPanel.Dock="Right" Width="200" TextWrapping="Wrap" IsReadOnly="True">
+        <TextBox AcceptsReturn="True" DockPanel.Dock="Right" Width="200" TextWrapping="Wrap" IsReadOnly="True" Name="LogBox">
         </TextBox>
 
         <StackPanel Height="60" Orientation="Horizontal" DockPanel.Dock="Bottom">
             <TextBox Margin="10" Width="400" Padding="10" Name="FilePathBox">Filepath</TextBox>
-            <Button Margin="10" Padding="10" Name="RenderButton">Render</Button>
+            <Button Margin="10" Padding="10" Name="RenderButton" Click="RenderButton_Click">Render</Button>
         </StackPanel>
         <ScrollViewer>
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" Name="MainStack">
                 <GroupBox Header="Output">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -39,11 +39,11 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0">Image Width:</TextBlock>
-                        <TextBox AcceptsReturn="False" Name="ImageSizeX" Grid.Row="0" Grid.Column="1"></TextBox>
+                        <TextBox AcceptsReturn="False" Name="ImageSizeX" Grid.Row="0" Grid.Column="1">800</TextBox>
                         <TextBlock Grid.Row="1" Grid.Column="0">Image Height:</TextBlock>
-                        <TextBox AcceptsReturn="False" Name="ImageSizeY" Grid.Row="1" Grid.Column="1"></TextBox>
+                        <TextBox AcceptsReturn="False" Name="ImageSizeY" Grid.Row="1" Grid.Column="1">600</TextBox>
                         <TextBlock Grid.Row="2" Grid.Column="0">Image Format:</TextBlock>
-                        <ComboBox Name="ImageFormat" Grid.Row="2" Grid.Column="1">
+                        <ComboBox Name="ImageFormats" Grid.Row="2" Grid.Column="1">
                             <ComboBoxItem>JPEG (.jpg)</ComboBoxItem>
                             <ComboBoxItem IsSelected="True">PNG (.png)</ComboBoxItem>
                             <ComboBoxItem>Bitmap (.bmp)</ComboBoxItem>
@@ -63,20 +63,20 @@
                         <TextBlock Grid.Row="0" Grid.Column="0">Position:</TextBlock>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                             <TextBlock>X:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraPositionX" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraPositionX" Width="40">0</TextBox>
                             <TextBlock>Y:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraPositionY" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraPositionY" Width="40">0</TextBox>
                             <TextBlock>Z:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraPositionZ" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraPositionZ" Width="40">-5</TextBox>
                         </StackPanel>
                         <TextBlock Grid.Row="1" Grid.Column="0">Target:</TextBlock>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                             <TextBlock>X:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraTargetX" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraTargetX" Width="40">0</TextBox>
                             <TextBlock>Y:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraTargetY" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraTargetY" Width="40">0</TextBox>
                             <TextBlock>Z:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraTargetZ" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraTargetZ" Width="40">0</TextBox>
                         </StackPanel>
                     </Grid>
                 </GroupBox>
@@ -97,9 +97,9 @@
                             <ComboBoxItem>Simplex</ComboBoxItem>
                         </ComboBox>
                         <TextBlock Grid.Row="1" Grid.Column="0">Size X:</TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="1" Name="HeightmapXSize"></TextBox>
+                        <TextBox Grid.Row="1" Grid.Column="1" Name="HeightmapSizeX">20</TextBox>
                         <TextBlock Grid.Row="2" Grid.Column="0">Size Z:</TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Name="HeightmapSizeZ">20</TextBox>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Model">
@@ -115,20 +115,20 @@
                         <TextBlock Grid.Row="0" Grid.Column="0">Position:</TextBlock>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                             <TextBlock>X:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelPositionX" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelPositionX" Width="40">0</TextBox>
                             <TextBlock>Y:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelPositionY" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelPositionY" Width="40">0</TextBox>
                             <TextBlock>Z:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelPositionZ" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelPositionZ" Width="40">0</TextBox>
                         </StackPanel>
                         <TextBlock Grid.Row="1" Grid.Column="0">Rotation:</TextBlock>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
                             <TextBlock>X:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelRotationX" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelRotationX" Width="40">0</TextBox>
                             <TextBlock>Y:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelRotationY" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelRotationY" Width="40">0</TextBox>
                             <TextBlock>Z:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelRotationZ" Width="40"></TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelRotationZ" Width="40">0</TextBox>
                         </StackPanel>
                     </Grid>
                 </GroupBox>
@@ -138,6 +138,18 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0">Color</TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                            <TextBlock>R:</TextBlock>
+                            <TextBox AcceptsReturn="False" Name="BackgroundR" Width="40">1</TextBox>
+                            <TextBlock>G:</TextBlock>
+                            <TextBox AcceptsReturn="False" Name="BackgroundG" Width="40">1</TextBox>
+                            <TextBlock>B:</TextBlock>
+                            <TextBox AcceptsReturn="False" Name="BackgroundB" Width="40">1</TextBox>
+                        </StackPanel>
                     </Grid>
                 </GroupBox>
             </StackPanel>
