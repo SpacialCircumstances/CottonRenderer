@@ -39,9 +39,9 @@
                             <ColumnDefinition Width="1*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0">Image Width:</TextBlock>
-                        <TextBox AcceptsReturn="False" Name="ImageSizeX" Grid.Row="0" Grid.Column="1">800</TextBox>
+                        <TextBox AcceptsReturn="False" Name="ImageSizeX" Grid.Row="0" Grid.Column="1">600</TextBox>
                         <TextBlock Grid.Row="1" Grid.Column="0">Image Height:</TextBlock>
-                        <TextBox AcceptsReturn="False" Name="ImageSizeY" Grid.Row="1" Grid.Column="1">600</TextBox>
+                        <TextBox AcceptsReturn="False" Name="ImageSizeY" Grid.Row="1" Grid.Column="1">800</TextBox>
                         <TextBlock Grid.Row="2" Grid.Column="0">Image Format:</TextBlock>
                         <ComboBox Name="ImageFormats" Grid.Row="2" Grid.Column="1">
                             <ComboBoxItem>JPEG (.jpg)</ComboBoxItem>
@@ -67,7 +67,7 @@
                             <TextBlock>Y:</TextBlock>
                             <TextBox AcceptsReturn="False" Name="CameraPositionY" Width="40">0</TextBox>
                             <TextBlock>Z:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="CameraPositionZ" Width="40">-5</TextBox>
+                            <TextBox AcceptsReturn="False" Name="CameraPositionZ" Width="40">55</TextBox>
                         </StackPanel>
                         <TextBlock Grid.Row="1" Grid.Column="0">Target:</TextBlock>
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
@@ -115,7 +115,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="0">Position:</TextBlock>
                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
                             <TextBlock>X:</TextBlock>
-                            <TextBox AcceptsReturn="False" Name="ModelPositionX" Width="40">0</TextBox>
+                            <TextBox AcceptsReturn="False" Name="ModelPositionX" Width="40">-10</TextBox>
                             <TextBlock>Y:</TextBlock>
                             <TextBox AcceptsReturn="False" Name="ModelPositionY" Width="40">0</TextBox>
                             <TextBlock>Z:</TextBlock>

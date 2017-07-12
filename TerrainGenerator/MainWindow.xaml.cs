@@ -276,6 +276,9 @@ namespace TerrainGenerator
             LogBox.AppendText("Rendering started.\n");
 
             Render(settings);
+            MainStack.IsEnabled = true;
+            RenderButton.IsEnabled = true;
+            FilePathBox.IsEnabled = true;
         }
 
         private void Render(TerrainRenderSettings settings)
@@ -323,15 +326,16 @@ namespace TerrainGenerator
                 Position = settings.ModelPosition,
                 Rotation = settings.ModelRotation
             };
+            Random random = new Random();
             for (int x = 0; x < settings.HeightmapSizeX; x++)
             {
                 for (int z = 0; z < settings.HeightmapSizeZ; z++)
                 {
                     int index = x * settings.HeightmapSizeX + z;
-                    float y = map.GetValue(x, z);
+                    float y = map.GetValue(x, z) / 10;
                     Vertex temp = new Vertex()
                     {
-                        Color = Color4.White,
+                        Color = new Color4(random.NextFloat(0, 1), random.NextFloat(0, 1), random.NextFloat(0, 1), 1),
                         Coordinates = new Vector3(x, y, z),
                         Normal = new Vector3(0, 0, 0)
                     };
@@ -360,10 +364,11 @@ namespace TerrainGenerator
             {
                 for (int y = 0; y < settings.ImageHeight; y++)
                 {
-                    bmp.SetPixel(x, y, renderer.BackBuffer[x * settings.ImageWidth + y]);
+                    bmp.SetPixel(x, y, renderer.BackBuffer[y * settings.ImageWidth + x]);
                 }
             }
             bmp.Save("output.png");
+
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
